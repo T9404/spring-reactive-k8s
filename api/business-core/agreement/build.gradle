@@ -5,8 +5,6 @@ dependencies {
     implementation libs.spring.jdbc
 
     implementation libs.cron.utils
-    implementation libs.generate.database.spring
-    annotationProcessor libs.generate.database
 }
 
 sourceSets {

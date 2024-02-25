@@ -13,14 +13,12 @@ public class AgreementService {
 
     private final AgreementRepository agreementRepository;
 
-    private final JdbcTemplate jdbcTemplate;
-
     public Agreement insert(String status) {
         return agreementRepository.insert(status);
     }
 
-    public Flux<Agreement> findByStatus(String status) {
-        return agreementRepository.findByStatus(status, jdbcTemplate);
+    public List<Agreement> findByStatus(String status) {
+        return agreementRepository.findByStatus(status);
     }
 
 }

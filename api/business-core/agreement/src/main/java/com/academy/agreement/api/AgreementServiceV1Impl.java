@@ -24,9 +24,10 @@ public class AgreementServiceV1Impl implements AgreementServiceV1 {
     }
 
     @Override
-    public Flux<AgreementResponseDto> get(String status) {
-        return agreementService.findByStatus(status)
-                .map(this::getAgreementResponseDto);
+    public List<AgreementResponseDto> get(String status) {
+        return agreementService.findByStatus(status).stream()
+                .map(this::getAgreementResponseDto)
+                .toList();
     }
 
     private AgreementResponseDto getAgreementResponseDto(Agreement agreement) {

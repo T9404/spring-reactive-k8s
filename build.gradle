@@ -1,17 +1,5 @@
 buildscript {
     repositories {
-        maven {
-            url 'https://nexus.infra.afsi.tech/repository/prm-maven-proxy/'
-        }
-        maven {
-            url 'https://nexus.infra.afsi.tech/repository/tpe-maven/'
-        }
-        maven {
-            url 'https://nexus.infra.afsi.tech/repository/processing-maven-hosted/'
-        }
-        maven {
-            url 'https://repo.gradle.org/gradle/libs-releases-local/'
-        }
         mavenCentral()
     }
 }
@@ -20,12 +8,6 @@ subprojects {
     group = 'com.prm'
 
     repositories {
-        maven {
-            url 'https://nexus.infra.afsi.tech/repository/processing-maven-hosted/'
-        }
-        maven {
-            url 'https://nexus.infra.afsi.tech/repository/tpe-maven/'
-        }
         mavenCentral()
     }
 }

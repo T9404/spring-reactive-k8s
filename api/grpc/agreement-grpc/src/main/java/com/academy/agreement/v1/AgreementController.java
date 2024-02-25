@@ -31,36 +31,21 @@ public class AgreementController extends AgreementServiceGrpc.AgreementServiceIm
     }
 
     @Override
-    public void get(AgreementRequest request, StreamObserver<AgreementResponse> responseObserver) {
-        Flux<AgreementResponseDto> flux = agreementServiceV1.get(request.getStatus());
+    public void get(AgreementRequest request, StreamObserver<AgreementList> responseObserver) {
+        var list = agreementServiceV1.get(request.getStatus());
 
-        flux.subscribe(new Subscriber<>() {
-            @Override
-            public void onSubscribe(Subscription subscription) {
+        list.stream().forEach(System.out::println);
+        var agreementList = AgreementList.newBuilder()
+                .addAllAgreements(list.stream()
+                        .map(agreementResponseDto -> AgreementResponse.newBuilder()
+                                .setId(agreementResponseDto.id())
+                                .setStatus(agreementResponseDto.status())
+                                .build())
+                        .toList())
+                .build();
 
-            }
-
-            @Override
-            public void onNext(AgreementResponseDto dto) {
-                responseObserver.onNext(
-                        AgreementResponse.newBuilder()
-                                .setId(dto.id())
-                                .setStatus(dto.status())
-                                .build()
-                );
-            }
-
-            @Override
-            public void onError(Throwable throwable) {
-                responseObserver.onError(throwable);
-            }
-
-            @Override
-            public void onComplete() {
-                responseObserver.onCompleted();
-            }
-        });
-
+        responseObserver.onNext(agreementList);
+        responseObserver.onCompleted();
     }
 
 }

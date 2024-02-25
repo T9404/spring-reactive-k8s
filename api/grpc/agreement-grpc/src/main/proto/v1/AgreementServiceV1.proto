@@ -13,7 +13,11 @@ message AgreementResponse {
   string status = 2;
 }
 
+message AgreementList {
+  repeated AgreementResponse agreements = 1;
+}
+
 service AgreementService {
   rpc Create(AgreementRequest) returns (AgreementResponse);
-  rpc Get(AgreementRequest) returns (stream AgreementResponse);
+  rpc Get(AgreementRequest) returns (AgreementList);
 }
