@@ -1,4 +1,4 @@
-How to run the project (example)
+### How to run the project (example)
 
 ```bash
 minikube start
