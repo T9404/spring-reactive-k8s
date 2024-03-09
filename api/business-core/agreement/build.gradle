@@ -1,8 +1,9 @@
 dependencies {
     implementation project(":api:public_interface")
 
+    implementation libs.spring.r2dbc
     implementation libs.postgresql.driver
-    implementation libs.spring.jdbc
+    implementation libs.postgresql.r2dbc
 
     implementation libs.cron.utils
 }

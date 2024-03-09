@@ -4,10 +4,8 @@
 create sequence agreement_seq;
 
 create table agreement (
-    id     bigint,
-    status varchar,
-
-    primary key (id)
+    id     serial CONSTRAINT id PRIMARY KEY,
+    status varchar
 );
 
 -----

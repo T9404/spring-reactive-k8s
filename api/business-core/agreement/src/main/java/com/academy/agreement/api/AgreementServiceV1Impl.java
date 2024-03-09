@@ -7,8 +7,7 @@ import com.academy.public_interface.agreement.v1.AgreementServiceV1;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
-
-import java.util.List;
+import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
@@ -18,22 +17,23 @@ public class AgreementServiceV1Impl implements AgreementServiceV1 {
 
     @Override
     public AgreementResponseDto create(String status) {
-        Agreement agreement = agreementService.insert(status);
-
-        return getAgreementResponseDto(agreement);
+        var agreement = Agreement.builder()
+                .status(status)
+                .build();
+        Mono<Agreement> savedAgreement = agreementService.save(agreement);
+        return getAgreementResponseDto(savedAgreement.block());
     }
 
     @Override
-    public List<AgreementResponseDto> get(String status) {
-        return agreementService.findByStatus(status).stream()
-                .map(this::getAgreementResponseDto)
-                .toList();
+    public Flux<AgreementResponseDto> get(String status) {
+        return agreementService.findByStatus(status)
+                .map(this::getAgreementResponseDto);
     }
 
     private AgreementResponseDto getAgreementResponseDto(Agreement agreement) {
         return AgreementResponseDto.builder()
-                .id(agreement.id())
-                .status(agreement.status())
+                .id(agreement.getId())
+                .status(agreement.getStatus())
                 .build();
     }
 

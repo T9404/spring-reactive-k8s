@@ -8,6 +8,6 @@ public interface AgreementServiceV1 {
 
     AgreementResponseDto create(String status);
 
-    List<AgreementResponseDto> get(String status);
+    Flux<AgreementResponseDto> get(String status);
 
 }
